@@ -1,0 +1,2 @@
+READ ME - In order to run this file you must compile it with the makefile, then the Usage is ./word-count filename.txt
+where filename is the file to be read by the program in order to fulfill the requirements.
