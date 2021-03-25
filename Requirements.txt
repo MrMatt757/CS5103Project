@@ -1,0 +1,18 @@
+Requirements of word-count:
+
+word-count: TEXT-> N
+\forall file: TEXT
+word-count file = #(words file) 
+
+Requirements of line-count:
+
+line-count: TEXT -> L
+\forall file: TEXT
+line-count file = #(lines file)
+
+Requirements of char-count:
+
+
+char-count: TEXT -> C
+\forall file: TEXT
+char-count file = (#ABCchars file) 
