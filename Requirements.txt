@@ -1,4 +1,4 @@
-Requirements of word-count:
+Requirements of word-count for total words:
 
 word-count: TEXT-> N
 \forall file: TEXT
@@ -15,4 +15,14 @@ Requirements of char-count:
 
 char-count: TEXT -> C
 \forall file: TEXT
-char-count file = (#ABCchars file) 
+char-count file = #(ABCchars file) - #(whitespace file) 
+
+Requirements of unique word frequency:
+
+Word-Count: word x seq word -> N
+
+\forall w:word s:seqWord
+count w <> = 0&
+count w <e> = 0 if w == e
+count w <e> = 1 if w != e
+count ws = count(head)+count(remainingTails)
