@@ -13,6 +13,12 @@ LLnode* createWord(char word[]);
 void destroyWords(LLnode* head);
 void printLineCountInFile(FILE* txtFile);
 int getCharCountInList(LLnode* head);
+void replaceWordsInFile(char* oldWord, char* newWord, FILE* dataFile, FILE* outFile);
+int countWordsUnitTest(FILE* dataFile);
+int printWordsUnitTest(LLnode* head, FILE* dataFile, char* fileName);
+int printLineCountUnitTest(FILE* dataFile);
+int getCharCountUnitTest(LLnode* head, FILE* dataFile);
+int replaceWordsInFileUnitTest(char* oldWord, char* newWord, FILE* dataFile, FILE* outFile);
 
 #endif
 

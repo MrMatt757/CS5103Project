@@ -26,3 +26,13 @@ count w <> = 0&
 count w <e> = 0 if w == e
 count w <e> = 1 if w != e
 count ws = count(head)+count(remainingTails)
+
+Requirements of word-replace:
+
+Word-replace: TEXT-> TEXT
+
+\forall w:word s:seqWord n:newWord
+replace w <> = 0&
+replace w <e> = n if w == e
+replace w <e> = w if w != e
+replace ws = replace(head)+replace(remainingWords)

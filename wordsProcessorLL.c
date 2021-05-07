@@ -87,7 +87,7 @@ void printWordsLinkedList(LLnode* head, char* fileName){
 
     int total = 0, totalCount = 0;    		// total: number of words, totalCount: all the node's count  
 
-    printf("The file %s has:\n", fileName); 	// print name of file
+    printf("\nThe file %s has:\n", fileName); 	// print name of file
 
     // iterate through list printing contents and incrementing counters appropriately
     while(head != NULL){
@@ -150,7 +150,7 @@ void printLineCountInFile(FILE* dataFile){
     }
 
     rewind(dataFile);
-    printf("The total number of lines is %d\n", lineCount);
+    printf("\nThe total number of lines is %d.\n", lineCount);
 }
 
 /*
@@ -169,4 +169,183 @@ int getCharCountInList(LLnode* head){
     }
 
     return charCount;
+}
+/*
+*Function: replaceWordsInFile
+*Parameters: head of words linked list 
+*Returns: The number of chars in a file's word linked list
+*/
+void replaceWordsInFile(char* oldWord, char* newWord, FILE* dataFile, FILE* outFile){
+    char buffer[50];
+
+    while(fscanf(dataFile, "%s", buffer) != EOF){
+		if(strcmp(buffer, oldWord) == 0)
+			fprintf(outFile, "%s ", newWord);
+		else
+			fprintf(outFile, "%s ", buffer);
+    }
+}
+
+/*
+*Function: countWordsUnitTest
+*Parameters: name of the data file 
+*Returns: unit test results
+*/
+int countWordsUnitTest(FILE* dataFile){
+    
+	FILE* smallTest = fopen("smallText.txt", "r");
+	FILE* largeTest = fopen("bible.txt", "r");
+
+	countWordsWithLinkedList(dataFile);
+	printf("\nTest file unit passed\n");
+
+	countWordsWithLinkedList(smallTest);
+	printf("Small test passed\n");
+
+	countWordsWithLinkedList(largeTest);
+	printf("Large test passed\n");
+
+	fclose(smallTest);
+	fclose(largeTest);
+	
+	return 1;
+}
+/*
+*Function: printWordsUnitTest
+*Parameters: head of words linked list, filename of the file being read 
+*Returns: unit tests result
+*/
+int printWordsUnitTest(LLnode* head, FILE* dataFile, char* fileName){
+
+	FILE* smallTest = fopen("smallText.txt", "r");
+	FILE* largeTest = fopen("bible.txt", "r");
+
+	LLnode* head1 = countWordsWithLinkedList(dataFile);
+	printWordsLinkedList(head1, fileName);
+	printf("\nTest file unit passed\n");
+
+	LLnode* head2 = countWordsWithLinkedList(smallTest);
+	printWordsLinkedList(head2, "smallText.txt");
+	printf("Small test passed\n");
+
+	LLnode* head3 = countWordsWithLinkedList(largeTest);
+	printWordsLinkedList(head3, "bible.txt");
+	printf("Large test passed\n");
+
+	fclose(smallTest);
+	fclose(largeTest);
+
+	return 1;
+}
+
+/*
+*Function: printLinesUnitTest
+*Parameters:filename of the file being read 
+*Returns: unit tests result
+*/
+int printLineCountUnitTest(FILE* dataFile){
+
+	FILE* smallTest = fopen("smallText.txt", "r");
+	FILE* largeTest = fopen("bible.txt", "r");
+
+	printLineCountInFile(dataFile);
+	printf("\nTest file unit passed\n");
+
+	printLineCountInFile(smallTest);
+	printf("Small test passed\n");
+
+	printLineCountInFile(largeTest);
+	printf("Large test passed\n");
+
+	fclose(smallTest);
+	fclose(largeTest);
+
+	return 1;
+}
+
+/*
+*Function: printLinesUnitTest
+*Parameters:filename of the file being read 
+*Returns: unit tests result
+*/
+int getCharCountUnitTest(LLnode* head, FILE* dataFile){
+
+	FILE* smallTest = fopen("smallText.txt", "r");
+	FILE* largeTest = fopen("bible.txt", "r");
+
+	LLnode* head1 = countWordsWithLinkedList(dataFile);
+	getCharCountInList(head1);
+	printf("\nTest file unit passed\n");
+
+	LLnode* head2 = countWordsWithLinkedList(smallTest);
+	getCharCountInList(head2);
+	printf("Small test passed\n");
+	
+	LLnode* head3 = countWordsWithLinkedList(largeTest);
+	getCharCountInList(head3);
+	printf("Large test passed\n");
+
+	fclose(smallTest);
+	fclose(largeTest);
+
+	return 1;
+}
+/*
+*Function: replaceWordsInFile
+*Parameters: head of words linked list 
+*Returns: The number of chars in a file's word linked list
+*/
+int replaceWordsInFileUnitTest(char* oldWord, char* newWord, FILE* dataFile, FILE* outFile){
+
+	FILE* smallTest = fopen("smallText.txt", "r");
+	FILE* largeTest = fopen("bible.txt", "r");
+
+	char* longWord = "supercalifragelisticexpialidocioushellotherebroHi";
+	char* shortWord = "a";
+	char* punctuatedWord = "Hello!";
+
+	replaceWordsInFile( oldWord, newWord, dataFile, outFile);
+	printf("\nTest file unit passed\n");
+	rewind(dataFile);
+
+	replaceWordsInFile( oldWord, newWord, smallTest, outFile);
+	printf("Small test passed\n");	
+	rewind(dataFile);
+
+	replaceWordsInFile( oldWord, newWord, largeTest, outFile);
+	printf("Large test passed\n");
+	rewind(dataFile);
+
+	replaceWordsInFile( longWord, newWord, dataFile, outFile);
+	printf("Long word old word unit passed\n");		
+	rewind(dataFile);
+
+	replaceWordsInFile( shortWord, newWord, smallTest, outFile);
+	printf("Short word old word unit passed\n");	
+	rewind(dataFile);
+
+	replaceWordsInFile( punctuatedWord, newWord, largeTest, outFile);
+	printf("Punctuated old word test passed\n");
+	rewind(dataFile);
+
+	replaceWordsInFile( oldWord, longWord, dataFile, outFile);
+	printf("Long word new word unit passed\n");		
+	rewind(dataFile);
+
+	replaceWordsInFile( oldWord, shortWord, smallTest, outFile);
+	printf("Short word new word unit passed\n");
+	rewind(dataFile);
+
+	replaceWordsInFile( oldWord, punctuatedWord, largeTest, outFile);
+	printf("Punctuated new word test passed\n");
+	rewind(dataFile);
+
+	replaceWordsInFile( shortWord, longWord, dataFile, outFile);
+	printf("Long word short word unit passed\n");
+
+	fclose(smallTest);
+	fclose(largeTest);
+	fclose(dataFile);
+
+	return 1;
 }
